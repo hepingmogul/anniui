@@ -53,7 +53,7 @@ pnpm init
 
 ```json
 {
-  "name": "@anni-ui/react",
+  "name": "@anniui/react",
   "version": "0.0.1",
   "private": true,
   "description": "React UI 组件库",
@@ -201,7 +201,7 @@ cd packages/react
 pnpm dev
 
 # 或者在根目录通过 --filter 启动指定包
-pnpm --filter @anni-ui/react dev
+pnpm --filter @anniui/react dev
 ```
 
 默认访问地址：[http://localhost:5173](http://localhost:5173)
@@ -210,16 +210,16 @@ pnpm --filter @anni-ui/react dev
 
 ## 在 Workspace 内引用其他包
 
-如果需要在 `react` 中使用 workspace 内的其他包（例如组件库 `@anni-ui/react`），可以直接添加依赖：
+如果需要在 `react` 中使用 workspace 内的其他包（例如组件库 `@anniui/react`），可以直接添加依赖：
 
 ```bash
-pnpm add @anni-ui/react --workspace
+pnpm add @anniui/react --workspace
 ```
 
 然后在代码中正常 import：
 
 ```ts
-import { Button } from '@anni-ui/react'
+import { Button } from '@anniui/react'
 ```
 
 ---

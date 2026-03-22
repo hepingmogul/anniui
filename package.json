@@ -1,7 +1,7 @@
 {
-  "name": "anni-ui",
+  "name": "anniui",
   "version": "1.0.0",
-  "description": "anni-ui components",
+  "description": "anniui components",
   "private": true,
   "scripts": {},
   "keywords": [],

@@ -1,5 +1,5 @@
 {
-  "name": "@anni-ui/react",
+  "name": "@anniui/react",
   "version": "0.0.1",
   "private": true,
   "description": "React UI 组件库",
@@ -13,6 +13,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@anniui/shared": "workspace:*",
     "lucide-react": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -1,0 +1,12 @@
+{
+  "name": "@anniui/shared",
+  "version": "0.0.1",
+  "private": true,
+  "description": "anniui shared utilities",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./utils/follow": "./src/utils/follow.ts"
+  },
+  "types": "./src/index.ts"
+}
