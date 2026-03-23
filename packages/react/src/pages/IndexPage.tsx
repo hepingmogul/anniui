@@ -12,6 +12,7 @@ const components = [
   { name: 'Toast', path: '/toast', desc: '全局消息提示，自动消失', category: '反馈' },
   { name: 'Tabs', path: '/tabs', desc: '选项卡切换，支持禁用状态', category: '导航' },
   { name: 'Breadcrumb', path: '/breadcrumb', desc: '面包屑导航，显示当前页面路径', category: '导航' },
+  { name: 'Follow', path: '/follow', desc: '弹层定位，根据 trigger 计算 target 最佳摆放', category: '工具' },
 ]
 
 const categoryColors: Record<string, string> = {
@@ -21,6 +22,7 @@ const categoryColors: Record<string, string> = {
   数据展示: 'bg-warning-light text-warning',
   反馈: 'bg-danger-light text-danger',
   导航: 'bg-info-light text-info-fg',
+  工具: 'bg-primary-light text-primary',
 }
 
 export default function IndexPage() {

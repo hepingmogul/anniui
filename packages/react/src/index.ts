@@ -1,5 +1,7 @@
 // 工具函数
 export { cn } from './core/utils/cn'
+export { Follow, Follow as FollowClass } from './core/utils/follow'
+export type { FollowOptions, FollowPosition } from './core/utils/follow'
 
 // 基础组件
 export { Button } from './core/Button'

@@ -23,6 +23,7 @@ const SwitchPage = lazy(() => import('./pages/SwitchPage'))
 const TabsPage = lazy(() => import('./pages/TabsPage'))
 const ToastPage = lazy(() => import('./pages/ToastPage'))
 const AnchorPage = lazy(() => import('./pages/AnchorPage'))
+const FollowPage = lazy(() => import('./pages/FollowPage'))
 
 const navItems = [
   { label: '总览', path: '/' },
@@ -51,6 +52,8 @@ const navItems = [
   { label: 'Tabs', path: '/tabs' },
   { label: 'Breadcrumb', path: '/breadcrumb' },
   { label: 'Anchor', path: '/anchor' },
+  { label: '工具', type: 'group' },
+  { label: 'Follow', path: '/follow' },
 ]
 
 function ThemeToggle() {
@@ -133,6 +136,7 @@ export default function App() {
         <Route path="tabs" element={<TabsPage />} />
         <Route path="toast" element={<ToastPage />} />
         <Route path="anchor" element={<AnchorPage />} />
+        <Route path="follow" element={<FollowPage />} />
       </Route>
     </Routes>
   )
