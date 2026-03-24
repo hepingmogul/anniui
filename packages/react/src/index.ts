@@ -76,6 +76,9 @@ export type { ToastItem, ToastOptions, ToastType } from './core/Toast'
 export { Overlay } from './core/Overlay'
 export type { OverlayProps } from './core/Overlay'
 
+export { Popover, PopoverTrigger, PopoverContent } from './core/Popover'
+export type { PopoverType, PopoverProps, PopoverTriggerProps, PopoverContentProps } from './core/Popover'
+
 export { Spinner } from './core/Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerColor } from './core/Spinner'
 
