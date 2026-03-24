@@ -14,32 +14,12 @@ import {
 import type { MutableRefObject, MouseEvent as ReactMouseEvent, Ref } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '../utils/cn'
+import { Overlay } from '../Overlay'
 import { Follow } from '../utils/follow'
 import type { FollowPosition } from '../utils/follow'
 import type { PopoverContentProps, PopoverProps, PopoverTriggerProps, PopoverType } from './Popover.types'
 
-const DEFAULT_Z_INDEX = 2000
 const DEFAULT_CLOSE_DELAY = 80
-
-let nextZIndex: number | null = null
-
-function getInitialZIndex() {
-  if (typeof document === 'undefined') return DEFAULT_Z_INDEX
-  const raw = getComputedStyle(document.documentElement).getPropertyValue('--ui-default-zindex').trim()
-  const parsed = Number.parseInt(raw, 10)
-  return Number.isFinite(parsed) ? parsed : DEFAULT_Z_INDEX
-}
-
-function allocateZIndex() {
-  if (nextZIndex === null) {
-    nextZIndex = getInitialZIndex()
-  }
-
-  const current = nextZIndex
-  nextZIndex += 1
-
-  return current
-}
 
 function composeEventHandlers<E>(
   userHandler: ((event: E) => void) | undefined,
@@ -57,7 +37,7 @@ function assignRef<T>(ref: Ref<T> | undefined, value: T) {
     ref(value)
     return
   }
-  ;(ref as MutableRefObject<T>).current = value
+  ; (ref as MutableRefObject<T>).current = value
 }
 
 interface PopoverContextValue {
@@ -66,7 +46,7 @@ interface PopoverContextValue {
   placement: FollowPosition
   offset: number
   closeDelay: number
-  zIndex: number
+  zIndex?: number
   triggerElement: HTMLElement | null
   contentElement: HTMLDivElement | null
   setOpen: (open: boolean) => void
@@ -103,8 +83,6 @@ export function Popover({
   const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null)
   const [contentElement, setContentElement] = useState<HTMLDivElement | null>(null)
   const closeTimerRef = useRef<number | null>(null)
-  const allocatedZIndex = useRef<number>(allocateZIndex())
-  const resolvedZIndex = zIndex ?? allocatedZIndex.current
 
   const currentOpen = isControlled ? open : internalOpen
 
@@ -146,7 +124,7 @@ export function Popover({
     placement,
     offset,
     closeDelay,
-    zIndex: resolvedZIndex,
+    zIndex,
     triggerElement,
     contentElement,
     setOpen,
@@ -162,12 +140,12 @@ export function Popover({
     currentOpen,
     offset,
     placement,
-    resolvedZIndex,
     scheduleClose,
     setOpen,
     triggerElement,
     type,
     toggleOpen,
+    zIndex,
   ])
 
   return <PopoverContext.Provider value={value}>{children}</PopoverContext.Provider>
@@ -303,8 +281,9 @@ export function PopoverContent({
   if (!open || typeof document === 'undefined') return null
 
   return createPortal(
-    <div
+    <Overlay
       ref={setContentElement}
+      zIndex={zIndex}
       className={cn(
         'rounded-md border border-neutral-200 bg-white p-3 shadow-lg',
         className,
@@ -313,7 +292,6 @@ export function PopoverContent({
         position: 'fixed',
         top: -9999,
         left: -9999,
-        zIndex,
         ...followCss,
         ...style,
       }}
@@ -330,7 +308,7 @@ export function PopoverContent({
       {...rest}
     >
       {children}
-    </div>,
+    </Overlay>,
     document.body,
   )
 }

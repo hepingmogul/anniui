@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import { forwardRef, useRef } from 'react'
+import { cn } from '../utils/cn'
 import type { OverlayProps } from './Overlay.types'
 
 const DEFAULT_Z_INDEX = 2000
@@ -23,9 +24,21 @@ function allocateZIndex() {
   return current
 }
 
-export function Overlay({ zIndex }: OverlayProps) {
-  const allocatedZIndex = useRef<number>(allocateZIndex())
+export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(function Overlay(
+  { zIndex, className, style, children, ...rest },
+  ref,
+) {
+  const allocatedZIndex = useRef(allocateZIndex())
   const currentZIndex = zIndex ?? allocatedZIndex.current
 
-  return <div style={{ zIndex: currentZIndex }} />
-}
+  return (
+    <div
+      ref={ref}
+      className={cn(className)}
+      style={{ zIndex: currentZIndex, ...style }}
+      {...rest}
+    >
+      {children}
+    </div>
+  )
+})
