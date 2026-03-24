@@ -76,6 +76,9 @@ export type { ToastItem, ToastOptions, ToastType } from './core/Toast'
 export { Overlay } from './core/Overlay'
 export type { OverlayProps } from './core/Overlay'
 
+export { Dialog, DialogClose, DialogHeader, DialogBody, DialogFooter } from './core/Dialog'
+export type { DialogProps, DialogSectionProps, DialogCloseProps } from './core/Dialog'
+
 export { Popover, PopoverTrigger, PopoverContent } from './core/Popover'
 export type { PopoverType, PopoverProps, PopoverTriggerProps, PopoverContentProps } from './core/Popover'
 
