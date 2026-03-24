@@ -63,6 +63,7 @@
 
   /* surface */
   --color-surface: #ffffff;
+  --ui-default-zindex: 2000;
 }
 
 .dark {

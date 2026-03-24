@@ -73,6 +73,9 @@ export type { CardProps } from './core/Card'
 export { Toast } from './core/Toast'
 export type { ToastItem, ToastOptions, ToastType } from './core/Toast'
 
+export { Overlay } from './core/Overlay'
+export type { OverlayProps } from './core/Overlay'
+
 export { Spinner } from './core/Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerColor } from './core/Spinner'
 
