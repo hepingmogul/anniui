@@ -9,6 +9,7 @@ const BreadcrumbPage = lazy(() => import('./pages/BreadcrumbPage'))
 const ButtonPage = lazy(() => import('./pages/ButtonPage'))
 const CardPage = lazy(() => import('./pages/CardPage'))
 const CheckboxPage = lazy(() => import('./pages/CheckboxPage'))
+const CascaderPage = lazy(() => import('./pages/CascaderPage'))
 const DividerPage = lazy(() => import('./pages/DividerPage'))
 const FormPage = lazy(() => import('./pages/FormPage'))
 const IndexPage = lazy(() => import('./pages/IndexPage'))
@@ -41,6 +42,7 @@ const navItems = [
   { label: 'Input', path: '/input' },
   { label: 'InputNumber', path: '/input-number' },
   { label: 'Checkbox', path: '/checkbox' },
+  { label: 'Cascader', path: '/cascader' },
   { label: 'Radio', path: '/radio' },
   { label: 'Switch', path: '/switch' },
   { label: 'Slider', path: '/slider' },
@@ -126,6 +128,7 @@ export default function App() {
         <Route path="breadcrumb" element={<BreadcrumbPage />} />
         <Route path="card" element={<CardPage />} />
         <Route path="checkbox" element={<CheckboxPage />} />
+        <Route path="cascader" element={<CascaderPage />} />
         <Route path="divider" element={<DividerPage />} />
         <Route path="form" element={<FormPage />} />
         <Route path="input" element={<InputPage />} />

@@ -6,6 +6,7 @@ const components = [
   { name: 'Divider', path: '/divider', desc: '区隔内容的分割线，支持虚线与文字', category: '布局' },
   { name: 'Input', path: '/input', desc: '基础输入框，支持前缀、错误状态', category: '表单' },
   { name: 'Checkbox', path: '/checkbox', desc: '多项选择，支持半选与禁用状态', category: '表单' },
+  { name: 'Cascader', path: '/cascader', desc: '级联选择，支持多级路径和异步加载', category: '表单' },
   { name: 'Badge', path: '/badge', desc: '徽标，用于展示消息数量或状态', category: '数据展示' },
   { name: 'Card', path: '/card', desc: '通用卡片容器，支持悬停效果', category: '数据展示' },
   { name: 'Spinner', path: '/spinner', desc: '加载旋转器，支持多种尺寸与颜色', category: '反馈' },

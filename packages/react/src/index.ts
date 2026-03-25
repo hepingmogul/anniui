@@ -85,6 +85,18 @@ export type { PopoverType, PopoverProps, PopoverTriggerProps, PopoverContentProp
 export { Spinner } from './core/Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerColor } from './core/Spinner'
 
+export { Cascader } from './core/Cascader'
+export type {
+  CascaderNodeValue,
+  CascaderOption,
+  CascaderPathValue,
+  CascaderMultipleValue,
+  CascaderValue,
+  CascaderShowCheckedStrategy,
+  CascaderRenderOption,
+  CascaderProps,
+} from './core/Cascader'
+
 // 导航组件
 export { Tabs } from './core/Tabs'
 export type { TabsProps, TabItem } from './core/Tabs'
