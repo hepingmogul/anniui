@@ -642,7 +642,14 @@ export function Cascader({
                   disabled={disabled}
                   placeholder={placeholder}
                   className="w-full bg-transparent outline-none"
-                  onClick={(event) => event.stopPropagation()}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    if (disabled || currentPopup) return
+                    if (!isPopupControlled) {
+                      setInnerPopup(true)
+                    }
+                    onPopupVisibleChange?.(true)
+                  }}
                 />
               </span>
             ) : multiple ? (
