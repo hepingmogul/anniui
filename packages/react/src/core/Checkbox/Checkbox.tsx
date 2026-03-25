@@ -6,6 +6,7 @@ import type { CheckboxProps } from './Checkbox.types'
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
   {
     indeterminate = false,
+    tag = 'span',
     disabled,
     checked,
     defaultChecked = false,
@@ -39,9 +40,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 
   const showCheck = !indeterminate && isChecked
   const showMinus = indeterminate
+  const RootTag = tag
 
   return (
-    <span
+    <RootTag
       className={cn(
         'relative inline-flex items-center justify-center cursor-pointer',
         disabled && 'cursor-not-allowed opacity-60',
@@ -75,6 +77,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         {showMinus && <Minus size={10} strokeWidth={3} className="text-white" />}
         {showCheck && <Check size={10} strokeWidth={3} className="text-white" />}
       </span>
-    </span>
+    </RootTag>
   )
 })

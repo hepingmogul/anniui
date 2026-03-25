@@ -543,7 +543,8 @@ export function Cascader({
                       void maybeLoadChildren(option)
                     }
                     if (multiple) {
-                      toggleMultiplePath([...nodePath, option])
+                      // Multiple mode: row click only expands/activates path.
+                      // Selection changes should come from Checkbox interactions only.
                       return
                     }
                     const path = [...nodePath, option]
@@ -556,9 +557,11 @@ export function Cascader({
                 >
                   {multiple && (
                     <Checkbox
+                      tag="label"
                       checked={checked}
                       indeterminate={indeterminate}
                       disabled={disabled || option.disabled}
+                      onMouseDown={(event) => event.stopPropagation()}
                       onClick={(event) => event.stopPropagation()}
                       onChange={() => {
                         if (disabled || option.disabled) return

@@ -67,7 +67,7 @@ describe('Cascader', () => {
     render(<Cascader options={options} multiple onChange={onChange} />)
 
     await openPanel()
-    await userEvent.click(screen.getByRole('button', { name: /浙江/ }))
+    await userEvent.click(screen.getAllByRole('checkbox')[0])
 
     const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual([
@@ -81,10 +81,21 @@ describe('Cascader', () => {
     render(<Cascader options={options} multiple checkStrictly onChange={onChange} />)
 
     await openPanel()
-    await userEvent.click(screen.getByRole('button', { name: /浙江/ }))
+    await userEvent.click(screen.getAllByRole('checkbox')[0])
 
     const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual([['zj']])
+  })
+
+  it('多选模式点击文本仅展开不触发选中', async () => {
+    const onChange = vi.fn()
+    render(<Cascader options={options} multiple onChange={onChange} />)
+
+    await openPanel()
+    await userEvent.click(screen.getByRole('button', { name: /浙江/ }))
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(screen.getByRole('button', { name: /杭州/ })).toBeInTheDocument()
   })
 
   it('showSearch 可本地搜索并选择结果', async () => {
