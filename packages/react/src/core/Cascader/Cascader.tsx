@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Check, ChevronDown, ChevronRight, Search, X } from 'lucide-react'
+import { ChevronDown, ChevronRight, Search, X } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '../Popover'
 import { Checkbox } from '../Checkbox'
 import { cn } from '../utils/cn'
@@ -488,9 +488,10 @@ export function Cascader({
   }, [])
 
   const renderColumn = (columnOptions: CascaderRenderOption[], level: number) => {
+    if (columnOptions.length === 0) return null
     const titlePath = selectedPaths[0]?.slice(0, level) ?? []
     return (
-      <div key={`column-${level}`} className="min-w-[180px] max-h-64 overflow-auto border-r border-neutral-100 last:border-r-0">
+      <div key={`column-${level}`} className="w-fit max-w-60 max-h-64 overflow-auto border-r border-neutral-100 last:border-r-0">
         {columnTitleRender && (
           <div className="px-3 py-2 text-xs text-neutral-500 border-b border-neutral-100">
             {columnTitleRender(level, titlePath)}
@@ -500,6 +501,7 @@ export function Cascader({
           {columnOptions.map((option) => {
             const nodePath = option.__pathOptions
             const isActive = option.__pathValues[level] === activePath[level]
+            const isSingleSelected = !multiple && Boolean(singleValue && isPathPrefix(option.__pathValues, singleValue))
             const hasChildren = Boolean(option.children && option.children.length > 0)
             const key = pathToKey(option.__pathValues)
             const loading = loadingPathKeys.has(key)
@@ -527,7 +529,11 @@ export function Cascader({
                   disabled={disabled || option.disabled}
                   className={cn(
                     'w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors',
-                    isActive ? 'bg-primary-50 text-primary' : 'hover:bg-neutral-50',
+                    isSingleSelected
+                      ? 'bg-neutral-100 text-neutral-900'
+                      : isActive
+                        ? 'bg-primary-50 text-primary'
+                        : 'hover:bg-neutral-50',
                     (disabled || option.disabled) && 'opacity-50 cursor-not-allowed',
                   )}
                   onClick={() => {
@@ -548,7 +554,7 @@ export function Cascader({
                     }
                   }}
                 >
-                  {multiple ? (
+                  {multiple && (
                     <Checkbox
                       checked={checked}
                       indeterminate={indeterminate}
@@ -559,10 +565,6 @@ export function Cascader({
                         toggleMultiplePath([...nodePath, option])
                       }}
                     />
-                  ) : (
-                    <span className="w-4 h-4 inline-flex items-center justify-center">
-                      {samePath(singleValue ?? [], option.__pathValues) ? <Check size={12} /> : null}
-                    </span>
                   )}
                   <span className="flex-1 truncate">{renderNodeLabel(option.name)}</span>
                   {loading && <span className="text-xs text-neutral-400">加载中...</span>}
@@ -690,7 +692,7 @@ export function Cascader({
 
       <PopoverContent
         role="dialog"
-        className={cn('p-0 overflow-hidden min-w-[320px]', panelClassName)}
+        className={cn('p-0 overflow-hidden w-fit', panelClassName)}
         onClick={(event) => event.stopPropagation()}
       >
         {showSearch && searchInput.trim() ? (
@@ -732,7 +734,11 @@ export function Cascader({
             )}
           </div>
         ) : (
-          <div className="flex items-stretch">{columns.map((column, index) => renderColumn(column, index))}</div>
+          <div className="flex items-stretch">
+            {columns
+              .filter((column) => column.length > 0)
+              .map((column, index) => renderColumn(column, index))}
+          </div>
         )}
 
         {footerRender ? (

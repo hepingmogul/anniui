@@ -31,6 +31,11 @@ function openPanel() {
   return userEvent.click(trigger)
 }
 
+function getLastCall<T extends (...args: any[]) => any>(fn: T) {
+  const calls = (fn as unknown as { mock: { calls: any[][] } }).mock.calls
+  return calls[calls.length - 1]
+}
+
 describe('Cascader', () => {
   it('单选模式可选择叶子节点并触发 onChange', async () => {
     const onChange = vi.fn()
@@ -42,7 +47,7 @@ describe('Cascader', () => {
     await userEvent.click(screen.getByRole('button', { name: /西湖区/ }))
 
     expect(onChange).toHaveBeenCalled()
-    const lastCall = onChange.mock.calls.at(-1)
+    const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual(['zj', 'hz', 'xh'])
     expect(screen.getByText('浙江 / 杭州 / 西湖区')).toBeInTheDocument()
   })
@@ -53,7 +58,7 @@ describe('Cascader', () => {
 
     await openPanel()
     await userEvent.click(screen.getByRole('button', { name: /浙江/ }))
-    const lastCall = onChange.mock.calls.at(-1)
+    const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual(['zj'])
   })
 
@@ -64,7 +69,7 @@ describe('Cascader', () => {
     await openPanel()
     await userEvent.click(screen.getByRole('button', { name: /浙江/ }))
 
-    const lastCall = onChange.mock.calls.at(-1)
+    const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual([
       ['zj', 'hz', 'xh'],
       ['zj', 'hz', 'ys'],
@@ -78,7 +83,7 @@ describe('Cascader', () => {
     await openPanel()
     await userEvent.click(screen.getByRole('button', { name: /浙江/ }))
 
-    const lastCall = onChange.mock.calls.at(-1)
+    const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual([['zj']])
   })
 
@@ -91,7 +96,7 @@ describe('Cascader', () => {
     await userEvent.type(input, '西湖')
     await userEvent.click(screen.getByRole('button', { name: /浙江 \/ 杭州 \/ 西湖区/ }))
 
-    const lastCall = onChange.mock.calls.at(-1)
+    const lastCall = getLastCall(onChange)
     expect(lastCall?.[0]).toEqual(['zj', 'hz', 'xh'])
   })
 
