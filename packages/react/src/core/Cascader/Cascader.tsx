@@ -422,6 +422,12 @@ export function Cascader({
 
   const hiddenCount = Math.max(displayMultiplePaths.length - maxTagCount, 0)
   const visibleMultiplePaths = displayMultiplePaths.slice(0, maxTagCount)
+  const triggerDisplayPaths = useMemo(() => {
+    if (multiple) return displayMultiplePaths
+    return selectedPathValues
+  }, [displayMultiplePaths, multiple, selectedPathValues])
+  const searchVisiblePaths = triggerDisplayPaths.slice(0, 1)
+  const searchHiddenCount = Math.max(triggerDisplayPaths.length - searchVisiblePaths.length, 0)
 
   const closePopup = useCallback(() => {
     if (!isPopupControlled) {
@@ -634,14 +640,31 @@ export function Cascader({
         >
           <span className="flex-1 min-w-0 text-left">
             {showSearch ? (
-              <span className="inline-flex items-center w-full gap-2">
+              <span className="inline-flex items-center w-full gap-2 min-w-0">
                 <Search size={14} className="text-neutral-400" />
+                {searchVisiblePaths.length > 0 ? (
+                  <span className="inline-flex items-center gap-1 shrink-0">
+                    {searchVisiblePaths.map((path) => (
+                      <span
+                        key={pathToKey(path)}
+                        className="inline-flex items-center px-1.5 py-0.5 rounded bg-neutral-100 text-neutral-700 text-xs max-w-44 truncate"
+                      >
+                        {getPathDisplayLabel(findOptionPathByValues(innerOptions, path) ?? [])}
+                      </span>
+                    ))}
+                    {searchHiddenCount > 0 ? (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-neutral-100 text-neutral-700 text-xs">
+                        +{searchHiddenCount}
+                      </span>
+                    ) : null}
+                  </span>
+                ) : null}
                 <input
                   value={searchInput}
                   onChange={(event) => setSearchInput(event.target.value)}
                   disabled={disabled}
-                  placeholder={placeholder}
-                  className="w-full bg-transparent outline-none"
+                  placeholder={searchVisiblePaths.length > 0 ? '' : placeholder}
+                  className="flex-1 min-w-[6px] bg-transparent outline-none"
                   onClick={(event) => {
                     event.stopPropagation()
                     if (disabled || currentPopup) return

@@ -111,6 +111,39 @@ describe('Cascader', () => {
     expect(lastCall?.[0]).toEqual(['zj', 'hz', 'xh'])
   })
 
+  it('showSearch 单选选中后在输入框前展示标签', async () => {
+    render(<Cascader options={options} showSearch value={['zj', 'hz', 'xh']} />)
+
+    expect(screen.getByText('浙江 / 杭州 / 西湖区')).toBeInTheDocument()
+  })
+
+  it('showSearch 多选在 >=2 时展示 1 个标签 +N', async () => {
+    render(
+      <Cascader
+        options={options}
+        showSearch
+        multiple
+        value={[
+          ['zj', 'hz', 'xh'],
+          ['zj', 'hz', 'ys'],
+        ]}
+      />,
+    )
+
+    expect(screen.getByText('浙江 / 杭州 / 西湖区')).toBeInTheDocument()
+    expect(screen.getByText('+1')).toBeInTheDocument()
+  })
+
+  it('showSearch 有标签时输入框仍可输入搜索', async () => {
+    const onSearch = vi.fn()
+    render(<Cascader options={options} showSearch value={['zj', 'hz', 'xh']} onSearch={onSearch} />)
+
+    const input = screen.getByRole('textbox')
+    await userEvent.type(input, '西湖')
+
+    expect(input).toHaveValue('西湖')
+  })
+
   it('支持远程搜索', async () => {
     const onRemoteSearch = vi.fn().mockResolvedValue([
       {
