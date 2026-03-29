@@ -12,6 +12,7 @@ const components = [
   { name: 'Spinner', path: '/spinner', desc: '加载旋转器，支持多种尺寸与颜色', category: '反馈' },
   { name: 'Toast', path: '/toast', desc: '全局消息提示，自动消失', category: '反馈' },
   { name: 'Dialog', path: '/dialog', desc: '居中对话框，支持 Header / Body / Footer', category: '反馈' },
+  { name: 'Tooltip', path: '/tooltip', desc: '轻量文字提示，支持 hover / focus 触发', category: '反馈' },
   { name: 'Popover', path: '/popover', desc: '锚点浮层，支持 click / hover 和受控模式', category: '反馈' },
   { name: 'Tabs', path: '/tabs', desc: '选项卡切换，支持禁用状态', category: '导航' },
   { name: 'Breadcrumb', path: '/breadcrumb', desc: '面包屑导航，显示当前页面路径', category: '导航' },

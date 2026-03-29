@@ -24,6 +24,7 @@ const SwitchPage = lazy(() => import('./pages/SwitchPage'))
 const TabsPage = lazy(() => import('./pages/TabsPage'))
 const ToastPage = lazy(() => import('./pages/ToastPage'))
 const DialogPage = lazy(() => import('./pages/DialogPage'))
+const TooltipPage = lazy(() => import('./pages/TooltipPage'))
 const AnchorPage = lazy(() => import('./pages/AnchorPage'))
 const FollowPage = lazy(() => import('./pages/FollowPage'))
 const PopoverPage = lazy(() => import('./pages/PopoverPage'))
@@ -53,6 +54,7 @@ const navItems = [
   { label: 'Spinner', path: '/spinner' },
   { label: 'Toast', path: '/toast' },
   { label: 'Dialog', path: '/dialog' },
+  { label: 'Tooltip', path: '/tooltip' },
   { label: 'Popover', path: '/popover' },
   { label: '导航', type: 'group' },
   { label: 'Tabs', path: '/tabs' },
@@ -143,6 +145,7 @@ export default function App() {
         <Route path="tabs" element={<TabsPage />} />
         <Route path="toast" element={<ToastPage />} />
         <Route path="dialog" element={<DialogPage />} />
+        <Route path="tooltip" element={<TooltipPage />} />
         <Route path="popover" element={<PopoverPage />} />
         <Route path="anchor" element={<AnchorPage />} />
         <Route path="follow" element={<FollowPage />} />

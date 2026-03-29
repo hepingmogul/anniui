@@ -82,6 +82,9 @@ export type { DialogProps, DialogSectionProps, DialogCloseProps } from './core/D
 export { Popover, PopoverTrigger, PopoverContent } from './core/Popover'
 export type { PopoverType, PopoverProps, PopoverTriggerProps, PopoverContentProps } from './core/Popover'
 
+export { Tooltip } from './core/Tooltip'
+export type { TooltipProps } from './core/Tooltip'
+
 export { Spinner } from './core/Spinner'
 export type { SpinnerProps, SpinnerSize, SpinnerColor } from './core/Spinner'
 
